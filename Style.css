@@ -1,0 +1,25 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 2rem;
+  background: #f9f9f9;
+  color: #333;
+}
+
+#app {
+  max-width: 800px;
+  margin: auto;
+}
+
+a {
+  color: #0070f3;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+pre {
+  background: #eee;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
