@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My PKM App</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div id="app">
-    <h1>📒 My PKM App</h1>
-    <div id="content">Loading...</div>
-  </div>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>PKM</title>
+  </head>
+  <body>
+    <div id="content"></div>
 
-  <script src="libs/markdown-it.min.js"></script>
-  <script src="script.js"></script>
-</body>
+    <!-- 1) Load Markdown-It (global `window.markdownit`) -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.2/dist/markdown-it.min.js"></script>
+
+    <!-- 2) Then your app code (which uses window.markdownit) -->
+    <script src="./script.js"></script>
+  </body>
 </html>
