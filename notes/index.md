@@ -1,6 +1,7 @@
-# Welcome to My PKM
+# My PKM App Index
 
-This is my personal knowledge base.
+This is my personal knowledge base index.
 
 - [[daily-2025-08-19]]
 - [[project-ideas]]
+- [[my-dashboard]]
