@@ -1,6 +1,6 @@
-# My PKM App Index
+# Notes Index.md
 
-This is my personal knowledge base index.
+This is my personal knowledge base notes index.
 
 - [[daily-2025-08-19]]
 - [[project-ideas]]
