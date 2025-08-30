@@ -1,7 +1,13 @@
-const md = window.markdownit({ linkify: true });
+import MarkdownIt from 'markdown-it';
+import markdownWeather from './markdown-weather.js';
+
+// --- Initialize Markdown-it once, with weather plugin ---
+const md = new MarkdownIt({ linkify: true });
+md.use(markdownWeather);
+
 const contentDiv = document.getElementById("content");
 
-// Load note from `notes/` folder
+// --- Load any note from `notes/` folder ---
 async function loadNote(noteName = "index") {
   try {
     const res = await fetch(`notes/${noteName}.md`);
@@ -17,41 +23,20 @@ async function loadNote(noteName = "index") {
     });
 
     contentDiv.innerHTML = md.render(text);
+
+    // After rendering, populate weather widgets if any
+    import('./weather.js');
   } catch (err) {
     contentDiv.innerHTML = `<p>⚠️ Note not found.</p>`;
   }
 }
 
-// Handle navigation via hash (#note-name)
+// --- Handle navigation via hash (#note-name) ---
 window.addEventListener("hashchange", () => {
   const noteName = decodeURIComponent(location.hash.slice(1));
   loadNote(noteName || "index");
 });
 
-// Initial load
+// --- Initial load ---
 const initialNote = decodeURIComponent(location.hash.slice(1)) || "index";
 loadNote(initialNote);
-
-
-
-import MarkdownIt from 'markdown-it';
-import markdownWeather from './markdown-weather.js';
-
-// Initialize Markdown-it with the weather plugin
-const md = new MarkdownIt();
-md.use(markdownWeather);
-
-// Load Markdown note
-async function loadDashboard() {
-  const res = await fetch('./notes/dashboard.md');
-  const rawMarkdown = await res.text();
-
-  const html = md.render(rawMarkdown);
-  document.getElementById('app').innerHTML = html;
-
-  // After Markdown renders, populate weather
-  import('./weather.js');
-}
-
-loadDashboard();
-
