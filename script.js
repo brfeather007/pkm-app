@@ -31,3 +31,27 @@ window.addEventListener("hashchange", () => {
 // Initial load
 const initialNote = decodeURIComponent(location.hash.slice(1)) || "index";
 loadNote(initialNote);
+
+
+
+import MarkdownIt from 'markdown-it';
+import markdownWeather from './markdown-weather.js';
+
+// Initialize Markdown-it with the weather plugin
+const md = new MarkdownIt();
+md.use(markdownWeather);
+
+// Load Markdown note
+async function loadDashboard() {
+  const res = await fetch('./notes/dashboard.md');
+  const rawMarkdown = await res.text();
+
+  const html = md.render(rawMarkdown);
+  document.getElementById('app').innerHTML = html;
+
+  // After Markdown renders, populate weather
+  import('./weather.js');
+}
+
+loadDashboard();
+
