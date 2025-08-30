@@ -1,4 +1,4 @@
-const md = window.markdownit();
+const md = window.markdownit({ linkify: true });
 const contentDiv = document.getElementById("content");
 
 // Load note from `notes/` folder
@@ -9,9 +9,11 @@ async function loadNote(noteName = "index") {
 
     let text = await res.text();
 
-    // Convert [[wiki-links]] → <a href="#note-name">note-name</a>
-    text = text.replace(/\[\[(.*?)\]\]/g, (_, note) => {
-      return `<a href="#${note}">${note}</a>`;
+    // Convert [[wiki-links]] → [note](#note)
+    text = text.replace(/\[\[(.*?)\]\]/g, (_, rawNote) => {
+      const note = rawNote.trim();
+      const hash = encodeURIComponent(note);
+      return `[${note}](#${hash})`;
     });
 
     contentDiv.innerHTML = md.render(text);
@@ -22,10 +24,10 @@ async function loadNote(noteName = "index") {
 
 // Handle navigation via hash (#note-name)
 window.addEventListener("hashchange", () => {
-  const noteName = location.hash.slice(1);
-  loadNote(noteName);
+  const noteName = decodeURIComponent(location.hash.slice(1));
+  loadNote(noteName || "index");
 });
 
 // Initial load
-const initialNote = location.hash.slice(1) || "index";
+const initialNote = decodeURIComponent(location.hash.slice(1)) || "index";
 loadNote(initialNote);
